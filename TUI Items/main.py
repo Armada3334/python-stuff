@@ -1,51 +1,27 @@
-import pytermgui as ptg
+import npyscreen
+class TestApp(npyscreen.NPSApp):
+    def main(self):
+        # These lines create the form and populate it with widgets.
+        # A fairly complex screen in only 8 or so lines of code - a line for each control.
+        F  = npyscreen.Form(name = "Welcome to Npyscreen",)
+        t  = F.add(npyscreen.TitleText, name = "Text:",)
+        fn = F.add(npyscreen.TitleFilename, name = "Filename:")
+        fn2 = F.add(npyscreen.TitleFilenameCombo, name="Filename2:")
+        dt = F.add(npyscreen.TitleDateCombo, name = "Date:")
+        s  = F.add(npyscreen.TitleSlider, out_of=12, name = "Slider")
+        ml = F.add(npyscreen.MultiLineEdit,
+               value = """try typing here!\nMutiline text, press ^R to reformat.\n""",
+               max_height=5, rely=9)
+        ms = F.add(npyscreen.TitleSelectOne, max_height=4, value = [1,], name="Pick One",
+                values = ["Option1","Option2","Option3"], scroll_exit=True)
+        ms2= F.add(npyscreen.TitleMultiSelect, max_height =-2, value = [1,], name="Pick Several",
+                values = ["Option1","Option2","Option3"], scroll_exit=True)
 
-CONFIG = """
-config:
-    InputField:
-        styles:
-            prompt: dim italic
-            cursor: '@72'
-    Label:
-        styles:
-            value: dim bold
+        # This lets the user interact with the Form.
+        F.edit()
 
-    Window:
-        styles:
-            border: '60'
-            corner: '60'
+        print(ms.get_selected_objects())
 
-    Container:
-        styles:
-            border: '96'
-            corner: '96'
-"""
-
-with ptg.YamlLoader() as loader:
-    loader.load(CONFIG)
-
-with ptg.WindowManager() as manager:
-    window = (
-        ptg.Window(
-            "",
-            ptg.InputField("Balazs", prompt="Name: "),
-            ptg.InputField("Some street", prompt="Address: "),
-            ptg.InputField("+11 0 123 456", prompt="Phone number: "),
-            "",
-            ptg.Container(
-                "Additional notes:",
-                ptg.InputField(
-                    "A whole bunch of\nMeaningful notes\nand stuff", multiline=True
-                ),
-                box="EMPTY_VERTICAL",
-            ),
-            "",
-            ["Submit", lambda *_: submit(manager, window)],
-            width=60,
-            box="DOUBLE",
-        )
-        .set_title("[210 bold]New contact")
-        .center()
-    )
-
-    manager.add(window)
+if __name__ == "__main__":
+    App = TestApp()
+    App.run()
