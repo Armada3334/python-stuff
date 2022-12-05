@@ -16,14 +16,14 @@ def roll_dice():
       roll = roll_die(die_type)
       total = roll + modifier
       if modifier >= 0:
-        result_text.set("You rolled a " + str(roll) + " on a d" + str(die_type) + " and added " + str(modifier) + " for a total of " + str(total))
+        result_text.set("You rolled a " + str(total) + " (" + str(roll) + " + " + str(modifier) + ". d" + str(die_type) +  ")")
       else:
-        result_text.set("You rolled a " + str(roll) + " on a d" + str(die_type) + " and subtracted " + str(-modifier) + " for a total of " + str(total))
+        result_text.set("You rolled a " + str(total) + " (" + str(roll) + str(modifier) + ". d" + str(die_type) +  ")")
     else:
       # If no modifier was entered, roll the die and display the result
       die_type = int(die_type_input.get())
       roll = roll_die(die_type)
-      result_text.set("You rolled a " + str(roll) + " on a d" + str(die_type))
+      result_text.set("You rolled a " + str(roll) + " (d" + str(die_type) + ")")
   else:
     # If no die type was entered, assume d20
     if modifier_input.get():
@@ -33,9 +33,9 @@ def roll_dice():
       roll = roll_die(20)
       total = roll + modifier
       if modifier >= 0:
-        result_text.set("You rolled a " + str(roll) + " on a d20" + " and added " + str(modifier) + " for a total of " + str(total))
+        result_text.set("You rolled a " + str(total) + " (" + str(roll) + " + " + str(modifier) + ". d20)")
       else:
-        result_text.set("You rolled a " + str(roll) + " on a d20" + " and subtracted " + str(-modifier) + " for a total of " + str(total))
+        result_text.set("You rolled a " + str(total) + " (" + str(roll) + str(modifier) + ". d20)")
     else:
       # If no modifier was entered, roll the die and display the result
       roll = roll_die(20)
@@ -43,7 +43,7 @@ def roll_dice():
 
 root = Tk()
 root.title("D&D Dice Roller")
-root.geometry("400x200")
+root.geometry("500x300")
 
 # Set the background color of the window to dark grey
 root.configure(bg="#222222")
